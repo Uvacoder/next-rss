@@ -3,6 +3,9 @@ import React from 'react'
 function RssPage({ feed = {} }: any) {
   const { channel = {} } = feed.rss || {}
   console.log('channel', channel)
+  const fetchData = () => {
+    fetch('https://hacks.mozilla.org/feed/').then(data => data.json())
+  }
   return (
     
     <div className='max-w-xl mx-auto bg-green-50'>
