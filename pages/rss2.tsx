@@ -9,12 +9,12 @@ function RssPage({ feed = {} }: any) {
   const { channel = {} } = feed.rss || {}
   const [ifrSrc, setIfrSrc] = React.useState('')
   const router = useRouter()
-  console.log('router', router)
-  const isActive = (key: string) => router?.asPath.indexOf(key) > -1
+  const routerkey = decodeURIComponent(router?.asPath.replace('/rss2?key=', ''))
+  const isActive = (key: string) => routerkey == key
   return (
     
-    <div className='flex'>
-      <div className='' style={{width: 100 }}>
+    <div className='flex' style={{ height: '100%' }}>
+      <div className='' style={{width: 120 }}>
         {Object.keys(API).map(key => (<Link href={`/rss2?key=${key}`} key={key}><p className={`block px-4 py-2 rounded-md cursor-pointer ${isActive(key) ? 'bg-amber-100 text-amber-700' : ''}`}>{key}</p></Link>))}
         </div>
       <div className='max-w-xl mx-auto'>
@@ -30,7 +30,7 @@ function RssPage({ feed = {} }: any) {
           </div>
         ))} 
       </div>
-      <iframe src={ifrSrc} frameBorder="0" width={600}></iframe>
+      <iframe src={ifrSrc} frameBorder="0" width={1000}  ></iframe>
     </div>
   )
 }
